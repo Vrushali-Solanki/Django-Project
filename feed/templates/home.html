@@ -1,0 +1,53 @@
+
+{% extends 'base.html'%}
+
+{% block content%}
+
+
+    <div class="jumbotron">
+        <h1 class="display-4">Hello {{user.username}}</h1>
+        <p class="lead">This is a Food Chartity Website.</p>
+        <hr class="my-4">
+        <p>Click below to post.</p>
+        <p class="lead">
+        <a class="btn btn-dark btn-lg" href="{% url 'postcreate' %}" role="button">Post</a>
+        </p>
+    </div>
+
+
+    <div class='container'>
+
+        {% for tweet in object_list %}
+
+
+            <br><br>
+            <div class="card" >
+                <div class="card-header bg-dark">
+                    <a href="{% url 'profile' %}"><h3>{{tweet.fname}}</h3></a>
+                </div>
+                <div class="card-body">
+                    <p>
+                        
+                        Address-{{tweet.address}}<br>
+                        Phone Number-{{tweet.phone}}<br>
+                        Meal-{{tweet.meal}}<br>
+                        Quantity-{{tweet.quantity}}<br>
+                    </p>
+                  
+
+
+                  {% if tweet.fname == user %}
+
+                  <a href="{% url 'postupdate' tweet.id %}"><button class="btn btn-outline-dark">Edit Post</button></a>
+                  <a href="{% url 'postdelete' tweet.id %}"><button class="btn btn-outline-dark">Delete Post</button></a>
+
+                  {% endif %}
+
+                  <p>{{tweet.datetime}}</p>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+{% endblock content%}
